@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Particle Sphere Gesture</title>
+    <meta
+      name="description"
+      content="摄像头背景上的高亮白色粒子球。张开手掌时球体炸开，握拳时粒子回球，食指滑动可以旋转球体。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <video class="camera-background" autoplay playsinline muted data-video></video>
+    <div class="camera-tint"></div>
+    <canvas class="scene" data-scene></canvas>
+    <canvas class="hand-overlay" data-overlay></canvas>
+
+    <section class="intro" data-intro>
+      <p class="eyebrow">LIVE / PARTICLE SPHERE</p>
+      <h1>粒子球体</h1>
+      <p class="intro-copy">
+        摄像头做背景，中间是一颗高亮白色粒子球。张开手掌，球体整体炸开；握拳，粒子快速回球；食指滑动可以带动球体旋转。
+      </p>
+      <div class="intro-actions">
+        <button class="primary-button" data-start-camera>启动球体</button>
+        <button class="ghost-button" data-fullscreen>全屏</button>
+        <button class="ghost-button secondary-ghost" data-open-external>在 Chrome 打开</button>
+      </div>
+    </section>
+
+    <div class="status-chip top-left">
+      <span>SYS // ACTIVE</span>
+      <strong data-mini-status>Offline</strong>
+    </div>
+
+    <div class="status-chip bottom-center" data-camera-state>等待摄像头启动</div>
+
+    <div class="metrics" aria-hidden="true">
+      <span>Open</span>
+      <strong data-open-value>0%</strong>
+      <span>Burst</span>
+      <strong data-spread-value>0%</strong>
+      <span data-status>等待摄像头启动</span>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
