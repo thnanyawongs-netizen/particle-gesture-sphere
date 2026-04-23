@@ -1,68 +1,97 @@
 # Particle Gesture Sphere
 
-一个基于 `Three.js + MediaPipe Hands` 的实时手势粒子交互示例。
+An interactive `Three.js + MediaPipe Hands` experiment where a bright particle sphere floats in the middle of a live camera feed and reacts to hand gestures in real time.
 
-整页使用摄像头作为背景，中间是一颗高亮白色粒子球：
-
-- 张开手掌：粒子球炸开
-- 握拳：粒子回到球体，并跟随拳头位置
-- 食指滑动：带动球体旋转
-- 食指向左快速甩动：触发球体完整转一圈
+This project was built iteratively with **OpenAI Codex** inside the Codex desktop app, combining direction, visual refinement, and code generation into one workflow.
 
 ## Preview
 
 ![Particle Gesture Sphere Preview](./assets/preview.png)
 
-## 预览特点
+## What It Does
 
-- 摄像头真人背景
-- 高密度发光粒子球
-- 手势识别驱动粒子状态
-- 平滑阻尼、惯性和跟随动画
-- 单文件静态部署，无构建步骤
+- Uses the webcam as the full-page background
+- Renders a dense glowing white particle sphere in the center
+- Detects hand landmarks with MediaPipe Hands
+- Explodes the sphere when the user opens a palm
+- Re-forms the sphere when the user makes a fist
+- Lets the sphere follow the fist position
+- Rotates the sphere with index-finger motion
+- Triggers a full spin when the index finger swipes left quickly
 
-## 技术栈
+## Why This Repo Exists
+
+This repository packages the interaction as a clean, shareable demo rather than a one-off local experiment. It is meant to be easy to clone, run, study, and extend.
+
+It also shows a practical example of a **Codex-assisted creative coding workflow**:
+
+- concept direction
+- visual iteration
+- interaction tuning
+- implementation
+- packaging for open-source release
+
+## Built With
 
 - `Three.js`
 - `MediaPipe Tasks Vision`
-- 原生 `WebGL`
-- 原生 `getUserMedia`
+- native `WebGL`
+- native `getUserMedia`
 
-依赖通过 CDN 加载，不需要安装 npm 包。
+All runtime dependencies are loaded from CDNs. There is no build step and no npm install required for the current version.
 
-## 快速开始
+## Interaction Model
 
-在仓库目录运行一个静态服务器：
+- **Open palm**: explode the particle sphere outward
+- **Fist**: gather particles back into the sphere and move it with the hand
+- **Index finger drag**: rotate the sphere
+- **Fast left swipe with index finger**: spin the sphere a full turn
+
+## Run Locally
+
+Start a static server from the repository root:
 
 ```bash
 python3 -m http.server 4010
 ```
 
-然后在 Chrome 打开：
+Then open:
 
 ```text
 http://localhost:4010
 ```
 
-第一次进入时允许摄像头权限。
+Use **Google Chrome** for the most reliable webcam behavior.
 
-## 文件结构
+## Files
 
-- `index.html`：页面结构
-- `styles.css`：视觉样式
-- `main.js`：Three.js 场景、粒子系统、MediaPipe 手势识别和动画逻辑
-- `TECH.md`：技术说明与可调参数
-- `assets/preview.png`：仓库预览截图
+- `index.html` — page structure and UI shell
+- `styles.css` — layout, glass UI, and presentation styling
+- `main.js` — Three.js scene setup, particle simulation, gesture logic, and animation loop
+- `TECH.md` — technical notes and architecture overview
+- `assets/preview.png` — repository preview image
 
-## 使用建议
+## Notes
 
-- 建议使用最新版 Chrome
-- 本地开发推荐 `localhost`
-- 如果部署到线上，请使用 HTTPS，否则浏览器可能不允许相机
+- Webcam access requires `localhost` or HTTPS
+- Some embedded browsers and WebViews may block or weaken camera permissions
+- Chrome is the recommended browser for testing and demos
 
-## 后续可扩展方向
+## Built With Codex
 
-- 更像地球的体积感和明暗层次
-- 更强的粒子拖尾和辉光
-- 双手交互
-- 基于 shader 的更高级粒子材质
+This project was not only coded in JavaScript. It was also shaped through repeated back-and-forth iteration with Codex:
+
+- refining the visual direction
+- tuning gesture behavior
+- adjusting particle density, scale, glow, and motion
+- restructuring the project for a public GitHub release
+
+If you are exploring AI-assisted frontend or creative coding workflows, this repo is intended as a concrete example of that process.
+
+## Possible Next Steps
+
+- make the sphere feel more volumetric and planet-like
+- add stronger bloom, trails, or post-processing
+- add two-hand interactions
+- move more of the particle behavior into shaders
+- publish a live demo with GitHub Pages or Vercel
