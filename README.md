@@ -9,6 +9,10 @@
 - 食指滑动：带动球体旋转
 - 食指向左快速甩动：触发球体完整转一圈
 
+## Preview
+
+![Particle Gesture Sphere Preview](./assets/preview.png)
+
 ## 预览特点
 
 - 摄像头真人背景
@@ -48,6 +52,7 @@ http://localhost:4010
 - `styles.css`：视觉样式
 - `main.js`：Three.js 场景、粒子系统、MediaPipe 手势识别和动画逻辑
 - `TECH.md`：技术说明与可调参数
+- `assets/preview.png`：仓库预览截图
 
 ## 使用建议
 
