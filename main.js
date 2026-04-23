@@ -171,30 +171,30 @@ const state = {
 
 buildSphere();
 updateMetrics(0, 0);
-setStatus("等待摄像头启动");
+setStatus("Waiting for camera access");
 setMiniStatus("Offline");
 
 if (isLikelyEmbeddedBrowser()) {
-  setStatus("当前内嵌浏览器可能拦截相机，建议直接在 Chrome 打开");
+  setStatus("This embedded browser may block camera access. Open the page in Chrome.");
   setMiniStatus("Embed");
 }
 
 startCameraButton.addEventListener("click", async () => {
   startCameraButton.disabled = true;
-  startCameraButton.textContent = "连接中…";
+  startCameraButton.textContent = "Connecting…";
 
   try {
     await runCameraPreflight();
     await ensureHandTracking();
     await startCamera();
     document.body.classList.add("started");
-    startCameraButton.textContent = "球体已连接";
-    setStatus("张开手掌炸开，握拳回球，食指滑动可以转球");
+    startCameraButton.textContent = "Sphere Connected";
+    setStatus("Open your palm to burst it, make a fist to reform it, and move your index finger to rotate it.");
     setMiniStatus("Live");
   } catch (error) {
     console.error(error);
     startCameraButton.disabled = false;
-    startCameraButton.textContent = "重新连接";
+    startCameraButton.textContent = "Retry";
     const { status, detail } = explainCameraFailure(error);
     setStatus(status);
     cameraState.textContent = detail;
@@ -215,12 +215,12 @@ fullscreenButton.addEventListener("click", async () => {
     }
   } catch (error) {
     console.error(error);
-    setStatus("全屏模式启动失败");
+    setStatus("Fullscreen mode could not be started.");
   }
 });
 
 document.addEventListener("fullscreenchange", () => {
-  fullscreenButton.textContent = document.fullscreenElement ? "退出全屏" : "全屏";
+  fullscreenButton.textContent = document.fullscreenElement ? "Exit Fullscreen" : "Fullscreen";
 });
 
 window.addEventListener("resize", onResize);
@@ -229,8 +229,8 @@ requestAnimationFrame(render);
 async function ensureHandTracking() {
   if (state.handTrackingReady) return;
 
-  setStatus("正在加载手势识别模型…");
-  cameraState.textContent = "加载感应模块…";
+  setStatus("Loading hand tracking model…");
+  cameraState.textContent = "Loading gesture engine…";
 
   const vision = await FilesetResolver.forVisionTasks(
     "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
@@ -299,54 +299,54 @@ async function startCamera() {
   await video.play();
   resizeOverlay();
   state.cameraReady = true;
-  cameraState.textContent = "张手炸开，握拳回球，食指转球";
+  cameraState.textContent = "Open palm to burst, fist to reform, index finger to rotate.";
 }
 
 function explainCameraFailure(error) {
   const fallback = {
-    status: "装置连接失败",
-    detail: "当前环境没能成功打开摄像头，更像是权限或浏览器限制。",
+    status: "Camera connection failed",
+    detail: "The current environment could not open the camera, likely due to permissions or browser limitations.",
   };
 
   if (!(error instanceof Error)) return fallback;
 
   if (error.message === "INSECURE_CONTEXT") {
     return {
-      status: "当前页面不是安全上下文",
-      detail: "这个浏览器环境没有把当前页面当作可访问摄像头的安全页面。",
+      status: "The current page is not a secure context",
+      detail: "This browser did not treat the page as a secure context for camera access.",
     };
   }
 
   if (error.message === "MEDIA_DEVICES_UNSUPPORTED") {
     return {
-      status: "当前浏览器不支持摄像头接口",
-      detail: "这个浏览器没有提供 mediaDevices.getUserMedia。",
+      status: "Camera APIs are not supported in this browser",
+      detail: "This browser did not provide mediaDevices.getUserMedia.",
     };
   }
 
   if (error.message === "CAMERA_PERMISSION_DENIED" || error.name === "NotAllowedError") {
     return {
-      status: "摄像头权限被拒绝",
-      detail: "当前应用或浏览器没有相机权限。",
+      status: "Camera permission was denied",
+      detail: "The current app or browser does not have camera permission.",
     };
   }
 
   if (error.name === "NotFoundError" || error.name === "DevicesNotFoundError") {
     return {
-      status: "没有找到可用摄像头",
-      detail: "系统没有返回可用的视频输入设备。",
+      status: "No camera was found",
+      detail: "The system did not return any available video input devices.",
     };
   }
 
   if (error.name === "NotReadableError" || error.name === "TrackStartError") {
     return {
-      status: "摄像头正被占用",
-      detail: "相机可能被其他应用占用。",
+      status: "Camera is already in use",
+      detail: "The camera may currently be in use by another app.",
     };
   }
 
   return {
-    status: `装置连接失败：${error.name || "UnknownError"}`,
+    status: `Camera connection failed: ${error.name || "UnknownError"}`,
     detail: error.message || fallback.detail,
   };
 }
@@ -393,8 +393,8 @@ function applyHandResponse(result) {
     state.prevIndexX = null;
     state.prevIndexY = null;
     updateMetrics(state.openScore * 0.9, state.targetExplosion);
-    setStatus("把一只手放进画面，张手炸开，握拳回球，食指滑动转球");
-    cameraState.textContent = "等待手进入画面";
+    setStatus("Place one hand in frame. Open your palm to burst the sphere, make a fist to reform it, and move your index finger to rotate it.");
+    cameraState.textContent = "Waiting for a hand to enter the frame";
     setMiniStatus("Idle");
     return;
   }
@@ -425,7 +425,7 @@ function applyHandResponse(result) {
       0,
       1
     );
-    setStatus("张开手掌，粒子球正在整体炸散");
+    setStatus("Open palm detected. The particle sphere is bursting outward.");
     cameraState.textContent = "Open burst";
     setMiniStatus("Open");
     state.prevIndexX = null;
@@ -434,7 +434,7 @@ function applyHandResponse(result) {
     state.targetExplosion = 0;
     state.targetFieldX = THREE.MathUtils.lerp(-7.2, 7.2, 1 - center.x);
     state.targetFieldY = THREE.MathUtils.lerp(7.6, -7.6, center.y);
-    setStatus("握拳中，粒子正在重新收回球体表面");
+    setStatus("Fist detected. The particles are gathering back into the sphere.");
     cameraState.textContent = "Fist follow";
     setMiniStatus("Fist");
     state.prevIndexX = null;
@@ -455,7 +455,7 @@ function applyHandResponse(result) {
         ) {
           state.targetOrbitTurnY += Math.PI * 2;
           state.lastSwipeAt = performance.now();
-          setStatus("食指向左甩动，粒子球开始完整转一圈");
+          setStatus("Fast left swipe detected. The sphere is starting a full turn.");
           cameraState.textContent = "Swipe spin";
           setMiniStatus("Swipe");
         }
@@ -474,14 +474,14 @@ function applyHandResponse(result) {
       state.prevIndexX = screenIndexX;
       state.prevIndexY = screenIndexY;
       if (performance.now() - state.lastSwipeAt > 260) {
-        setStatus("食指滑动中，粒子球会跟着旋转，向左甩会转一整圈");
+        setStatus("Index finger motion detected. Move it to rotate the sphere, or swipe left for a full spin.");
         cameraState.textContent = "Index rotate";
         setMiniStatus("Rotate");
       }
     } else {
       state.prevIndexX = null;
       state.prevIndexY = null;
-      setStatus("保持手在画面里，食指滑动可以转球，向左甩会转一整圈");
+      setStatus("Keep your hand in frame. Move your index finger to rotate the sphere, or swipe left for a full turn.");
       cameraState.textContent = "Tracking";
       setMiniStatus("Track");
     }

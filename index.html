@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Particle Sphere Gesture</title>
     <meta
       name="description"
-      content="摄像头背景上的高亮白色粒子球。张开手掌时球体炸开，握拳时粒子回球，食指滑动可以旋转球体。"
+      content="A bright particle sphere over a live camera feed. Open your palm to burst it, make a fist to reform it, and use your index finger to rotate it."
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
@@ -18,14 +18,14 @@
 
     <section class="intro" data-intro>
       <p class="eyebrow">LIVE / PARTICLE SPHERE</p>
-      <h1>粒子球体</h1>
+      <h1>Particle Sphere</h1>
       <p class="intro-copy">
-        摄像头做背景，中间是一颗高亮白色粒子球。张开手掌，球体整体炸开；握拳，粒子快速回球；食指滑动可以带动球体旋转。
+        A bright white particle sphere floats over the live camera feed. Open your palm to burst it outward, make a fist to pull it back together, and move your index finger to rotate it.
       </p>
       <div class="intro-actions">
-        <button class="primary-button" data-start-camera>启动球体</button>
-        <button class="ghost-button" data-fullscreen>全屏</button>
-        <button class="ghost-button secondary-ghost" data-open-external>在 Chrome 打开</button>
+        <button class="primary-button" data-start-camera>Start Sphere</button>
+        <button class="ghost-button" data-fullscreen>Fullscreen</button>
+        <button class="ghost-button secondary-ghost" data-open-external>Open in Chrome</button>
       </div>
     </section>
 
@@ -34,14 +34,14 @@
       <strong data-mini-status>Offline</strong>
     </div>
 
-    <div class="status-chip bottom-center" data-camera-state>等待摄像头启动</div>
+    <div class="status-chip bottom-center" data-camera-state>Waiting for camera access</div>
 
     <div class="metrics" aria-hidden="true">
       <span>Open</span>
       <strong data-open-value>0%</strong>
       <span>Burst</span>
       <strong data-spread-value>0%</strong>
-      <span data-status>等待摄像头启动</span>
+      <span data-status>Waiting for camera access</span>
     </div>
 
     <script type="module" src="./main.js"></script>

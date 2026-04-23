@@ -8,6 +8,9 @@ This project was built iteratively with **OpenAI Codex** inside the Codex deskto
 
 ![Particle Gesture Sphere Preview](./assets/preview.png)
 
+- Live demo: [thnanyawongs-netizen.github.io/particle-gesture-sphere](https://thnanyawongs-netizen.github.io/particle-gesture-sphere/)
+- Demo recording: [assets/demo.mov](./assets/demo.mov)
+
 ## What It Does
 
 - Uses the webcam as the full-page background
@@ -70,6 +73,7 @@ Use **Google Chrome** for the most reliable webcam behavior.
 - `main.js` — Three.js scene setup, particle simulation, gesture logic, and animation loop
 - `TECH.md` — technical notes and architecture overview
 - `assets/preview.png` — repository preview image
+- `assets/demo.mov` — short recording of the interaction
 
 ## Notes
 
